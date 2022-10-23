@@ -2,6 +2,7 @@ pipeline {
   agent {
 
     docker {
+      //it's necessary to grant Jenkins permission to a Docker: 'usermod -a -G docker jenkins'
       image 'hub.tolstykh.family/build-java:v0.1.0'
       args '-v /var/run/docker.sock:/var/run/docker.sock'
     }
@@ -22,25 +23,24 @@ pipeline {
       }
     }
 
-/*    stage('Make docker image') {
+    stage('Make docker image') {
       steps {
-        sh 'mkdir /tmp/build && cp -R target/*.war /tmp/build && cd /tmp/build && docker build --tag=gateway-api .'
-        sh '''docker tag gateway-api devcvs-srv01:5000/shop2-backend/gateway-api:2-staging && docker push devcvs-srv01:5000/shop2-backend/gateway-api:2-staging'''
-
+        sh 'docker build --tag=java-app .'
+        sh 'docker tag java-app hub.tolstykh.family/java-app:v0.1.0 && docker push hub.tolstykh.family/java-app:v0.1.0'
       }
     }
 
-    stage('Run docker on devbe-srv01') {
+    stage('Run docker on remote docker host') {
       steps {
-        sh 'ssh-keyscan -H devbe-srv01 >> ~/.ssh/known_hosts'
-        sh '''ssh jenkins@devbe-srv01 << EOF
-	sudo docker pull devcvs-srv01:5000/shop2-backend/gateway-api:2-staging
-	cd /etc/shop/docker
-	sudo docker-compose up -d
-EOF'''
+//        sh 'ssh-keyscan -H 158.160.0.11 >> ~/.ssh/known_hosts'
+//        sh '''ssh jenkins@158.160.0.11 << EOF
+//	sudo docker pull devcvs-srv01:5000/shop2-backend/gateway-api:2-staging
+//	cd /etc/shop/docker
+	sh 'sudo docker run -h tcp://158.160.0.11:22375 -d --pull always hub.tolstykh.family/java-app:v0.1.0'
+//EOF'''
       }
     }
-*/
+
   }
 //  triggers {
 //    pollSCM('*/1 H * * *')
