@@ -12,6 +12,7 @@ ENV TZ=Europe/Moscow
 #	'maven'     - for building the app
 #	'docker-ce' - for building prod container
 RUN apt-get update && apt-get install -y \
+	sudo \
 	apt-transport-https \
 	curl \
 	gnupg2 \
@@ -23,7 +24,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
 	&& add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-# Seting up docker and further cache cleaning:
+# Setting up docker and further cache cleaning:
 RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*	
