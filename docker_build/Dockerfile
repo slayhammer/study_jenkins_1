@@ -7,18 +7,20 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
 
-# Add docker engine repository
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-RUN add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
-# Seting up all necessary software and further cache cleaning:
+# Seting up all necessary software but docker:
 #	'git'       - for cloning the sample java app from a rep
 #	'maven'     - for building the app
 #	'docker-ce' - for building prod container
 RUN apt-get update && apt-get install -y \
-	gnupg2 \
 	git \
-	maven \
+	maven
+
+# Add docker engine repository
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+	&& add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+# Seting up docker and further cache cleaning:
+RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*	
 
