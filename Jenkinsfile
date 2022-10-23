@@ -3,7 +3,7 @@ pipeline {
 
     docker {
       //it's necessary to grant the user 'jenkins' permission to a docker: 'usermod -a -G docker jenkins'
-      image 'hub.tolstykh.family/build-java:v0.1.1'
+      image 'hub.tolstykh.family/build-java:v0.1.2'
       args '-v /var/run/docker.sock:/var/run/docker.sock'
     }
 
@@ -35,7 +35,7 @@ pipeline {
     stage('Make docker image') {
       steps {
 //        sh 'usermod -aG docker ${USER}'
-        sh 'cd /tmp/build && sudo docker build --tag=java-app .'
+        sh 'cd /tmp/build && docker build --tag=java-app .'
         sh 'docker tag java-app hub.tolstykh.family/java-app:v0.1.0 && docker push hub.tolstykh.family/java-app:v0.1.0'
       }
     }
