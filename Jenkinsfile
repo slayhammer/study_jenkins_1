@@ -20,7 +20,8 @@ pipeline {
     stage('Build war') {
       steps {
         sh 'mvn package'
-        sh 'mkdir /tmp/build; cp -f target/onlineshop.war ./'
+        sh 'mkdir /tmp/build; cp -f target/onlineshop.war /tmp/build/'
+        sh 'ls /tmp/build'
       }
     }
 
@@ -28,6 +29,7 @@ pipeline {
       steps {
         sh 'mkdir /tmp/prod-rep; cd /tmp/prod-rep'
         git(url: 'https://github.com/slayhammer/study_jenkins_1.git', branch: 'master', poll: true)
+        sh 'ls .'
         sh 'cp -f Dockerfile /tmp/build/'
       }
     }

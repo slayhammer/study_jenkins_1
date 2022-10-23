@@ -21,7 +21,7 @@ RUN apk add --no-cache openjdk8-jre-base; \
 	rm -f apache-tomcat-9.0.68.tar.gz
 
 # Installing the app
-COPY target/onlineshop.war $CATALINA_BASE/webapps/
+COPY onlineshop.war $CATALINA_BASE/webapps/
 
 # Running environment
 EXPOSE 8080
