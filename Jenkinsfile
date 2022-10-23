@@ -20,11 +20,21 @@ pipeline {
     stage('Build war') {
       steps {
         sh 'mvn package'
+        sh 'mkdir /tmp/build; cp -f target/onlineshop.war ./'
+      }
+    }
+
+    stage('Copy source with prod Dockerfile') {
+      steps {
+        sh 'mkdir /tmp/prod-rep; cd /tmp/prod-rep'
+        git(url: 'https://github.com/slayhammer/study_jenkins_1.git', branch: 'master', poll: true)
+        sh 'cp -f Dockerfile /tmp/build/'
       }
     }
 
     stage('Make docker image') {
       steps {
+        sh 'cd /tmp/build'
         sh 'docker build --tag=java-app .'
         sh 'docker tag java-app hub.tolstykh.family/java-app:v0.1.0 && docker push hub.tolstykh.family/java-app:v0.1.0'
       }
