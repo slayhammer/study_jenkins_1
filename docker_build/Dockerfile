@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*	
 
-RUN useradd -g users -G docker -u 108 jenkins
+RUN useradd -g users -G docker -u 109 jenkins
 
 # Install ssh
 # RUN apt-get -y install openssh-client
