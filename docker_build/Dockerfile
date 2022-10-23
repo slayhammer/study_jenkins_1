@@ -14,6 +14,7 @@ ENV TZ=Europe/Moscow
 RUN apt-get update && apt-get install -y \
 	git \
 	maven \
+	curl \
 	gnupg2
 
 # Add docker engine repository
