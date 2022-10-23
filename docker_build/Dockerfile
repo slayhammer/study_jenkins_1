@@ -13,7 +13,8 @@ ENV TZ=Europe/Moscow
 #	'docker-ce' - for building prod container
 RUN apt-get update && apt-get install -y \
 	git \
-	maven
+	maven \
+	gnupg2
 
 # Add docker engine repository
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
