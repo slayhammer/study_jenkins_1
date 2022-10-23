@@ -12,10 +12,12 @@ ENV TZ=Europe/Moscow
 #	'maven'     - for building the app
 #	'docker-ce' - for building prod container
 RUN apt-get update && apt-get install -y \
-	git \
-	maven \
+	apt-transport-https \
 	curl \
-	gnupg2
+	gnupg2 \
+	software-properties-common \
+	git \
+	maven
 
 # Add docker engine repository
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
