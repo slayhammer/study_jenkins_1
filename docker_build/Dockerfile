@@ -16,6 +16,7 @@ RUN add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download
 #	'maven'     - for building the app
 #	'docker-ce' - for building prod container
 RUN apt-get update && apt-get install -y \
+	gnupg2 \
 	git \
 	maven \
 	docker-ce \
