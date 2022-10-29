@@ -5,7 +5,7 @@ pipeline {
 		// 'usermod -a -G docker jenkins'
 		// 'chmod 777 /var/run/docker.sock'
 			image 'hub.tolstykh.family/build-java:v0.1.1'
-			args '-v /var/run/docker.sock:/var/run/docker.sock --privileged'
+			args '-v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
 
@@ -35,7 +35,7 @@ stages {
 	stage('Nexus login') {
 		steps {
 			withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'NEXUS_PWD', usernameVariable: 'NEXUS_USER')]) {
-				sh 'docker login -u $NEXUS_USER -p $NEXUS_PWD hub.tolstykh.family'
+				sh 'sudo docker login -u $NEXUS_USER -p $NEXUS_PWD hub.tolstykh.family'
 			}
 		}
 	}
