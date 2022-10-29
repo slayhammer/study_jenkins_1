@@ -19,8 +19,7 @@ pipeline {
 
     stage('Build war') {
       steps {
-        sh 'pwd'
-        sh 'mvn package -f ./'
+        sh 'sudo mvn package'
         sh 'mkdir /tmp/build; cp -f target/onlineshop.war /tmp/build/'
       }
     }
