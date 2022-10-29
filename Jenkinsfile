@@ -3,7 +3,7 @@ pipeline {
 
     docker {
       //it's necessary to grant the user 'jenkins' permission to a docker: 'usermod -a -G docker jenkins'
-      image 'hub.tolstykh.family/build-java:v0.1.3'
+      image 'hub.tolstykh.family/build-java:v0.1.4'
       args '-v /var/run/docker.sock:/var/run/docker.sock'
     }
 
@@ -46,7 +46,7 @@ pipeline {
 //        sh '''ssh jenkins@158.160.0.11 << EOF
 //	sudo docker pull devcvs-srv01:5000/shop2-backend/gateway-api:2-staging
 //	cd /etc/shop/docker
-	sh 'sudo docker run -h tcp://158.160.0.11:22375 -d --pull always hub.tolstykh.family/java-app:v0.1.0'
+	sh 'sudo docker run -h tcp://158.160.18.82:22375 -d --pull always hub.tolstykh.family/java-app:v0.1.0'
 //EOF'''
       }
     }
