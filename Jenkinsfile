@@ -3,7 +3,7 @@ pipeline {
 
     docker {
       //it's necessary to grant the user 'jenkins' permission to a docker: 'usermod -a -G docker jenkins'
-      image 'hub.tolstykh.family/build-java:v0.1.5'
+      image 'hub.tolstykh.family/build-java:v0.1.6'
       args '-v /var/run/docker.sock:/var/run/docker.sock'
     }
 
@@ -19,7 +19,7 @@ pipeline {
 
     stage('Build war') {
       steps {
-        sh 'sudo mvn package'
+        sh 'mvn package'
         sh 'mkdir /tmp/build; cp -f target/onlineshop.war /tmp/build/'
       }
     }
