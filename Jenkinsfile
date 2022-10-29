@@ -35,7 +35,7 @@ stages {
 	stage('Nexus login') {
 		steps {
 			withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'NEXUS_PWD', usernameVariable: 'NEXUS_USER')]) {
-				sh 'docker login -u $NEXUS_USER admin -p $NEXUS_PWD hub.tolstykh.family'
+				sh 'docker login -u $NEXUS_USER -p $NEXUS_PWD hub.tolstykh.family'
 			}
 		}
 	}
