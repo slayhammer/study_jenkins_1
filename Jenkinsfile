@@ -34,7 +34,6 @@ pipeline {
 
     stage('Make docker image') {
       steps {
-        sh 'whoami'
         sh 'cd /tmp/build && docker build --tag=java-app .'
         sh 'docker tag java-app hub.tolstykh.family/java-app:v0.1.0 && docker push hub.tolstykh.family/java-app:v0.1.0'
       }
