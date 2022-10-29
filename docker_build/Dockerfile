@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*	
 
-RUN useradd -g users -G docker,sudo -u 109 -с "Jenkins action account" jenkins
+RUN useradd -g users -G docker,sudo -u 109 -c "Jenkins action account" jenkins
 
 # Install ssh
 # RUN apt-get -y install openssh-client
