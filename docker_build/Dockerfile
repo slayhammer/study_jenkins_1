@@ -29,13 +29,6 @@ RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*	
 
-RUN groupadd -r docker \
-	&& usermod -aG docker jenkins
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
-
 # RUN useradd -g users -G docker,sudo -d /home/jenkins -u 109 -c "Jenkins action account" jenkins
 
 # Install ssh
