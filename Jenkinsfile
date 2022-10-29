@@ -2,9 +2,11 @@ pipeline {
   agent {
 
     docker {
-      //it's necessary to grant the user 'jenkins' permission to a docker: 'usermod -a -G docker jenkins'
+      //it's necessary to grant the user 'jenkins' permission to a docker:
+      // 'usermod -a -G docker jenkins'
+      // 'chmod 777 /var/run/docker.sock'
       image 'hub.tolstykh.family/build-java:v0.1.1'
-      args '-v /var/run/docker.sock:/var/run/docker.sock --privileged'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
     }
 
   }
@@ -35,6 +37,9 @@ pipeline {
     stage('Make docker image') {
       steps {
         sh 'cd /tmp/build && docker build --tag=java-app .'
+        withCredentials([string(credentialsId: 'nexus', variable: 'dockerpwd')]) {
+        	sh "docker login -u admin -p ${dockerpwd}"
+        }
         sh 'docker tag java-app hub.tolstykh.family/java-app:v0.1.0 && docker push hub.tolstykh.family/java-app:v0.1.0'
       }
     }
