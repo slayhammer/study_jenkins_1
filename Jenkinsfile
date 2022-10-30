@@ -53,7 +53,7 @@ stages {
 //        sh '''ssh jenkins@158.160.0.11 << EOF
 //	sudo docker pull devcvs-srv01:5000/shop2-backend/gateway-api:2-staging
 //	cd /etc/shop/docker
-			sh 'sudo docker run -h tcp://158.160.16.181:22375 -d --pull always hub.tolstykh.family/java-app:v0.1.0'
+			sh 'docker run -h tcp://158.160.16.181:22375 -d --pull always hub.tolstykh.family/java-app:v0.1.0'
 //EOF'''
 		}
 	}
