@@ -5,7 +5,7 @@ pipeline {
 		//It's necessary to grant the user 'jenkins' permission to a docker:
 		//  'usermod -a -G docker jenkins'
 		//  'chmod 666 /var/run/docker.sock' (every time after jenkins host restarts)
-			image 'hub.tolstykh.family/build-java:v0.1.9'
+			image 'hub.tolstykh.family/build-java:latest'
 			args '-v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
