@@ -5,6 +5,9 @@ FROM ubuntu:20.04
 
 # Environment setup
 ARG DEBIAN_FRONTEND=noninteractive
+ARG JENKINSUID
+ARG JENKINSGID
+ARG DOCKERGID
 ENV TZ=Europe/Moscow
 
 # Seting up all necessary software but docker:
@@ -29,9 +32,4 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add jenkins account for neccessary permissions to work
-RUN useradd -g users -G docker -m -u 109 -c "Jenkins action account" jenkins
-
-# Add CA certificates to trust nexus repository site
-COPY globalsign_im.crt /usr/local/share/ca-certificates/
-COPY globalsign_root.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+CMD useradd -g ${JENKINSGID} -G ${DOCKERGID} -m -N -u ${JENKINSUID} -c "Jenkins action account" jenkins

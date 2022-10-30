@@ -2,7 +2,6 @@
 //	- CA certificates from rep must be installed;
 //  - It's necessary to grant the user 'jenkins' permission to a docker:
 //  	'usermod -a -G docker jenkins'
-//  	'chmod 666 /var/run/docker.sock' (!!!every time after jenkins host restarts!!!)
 //
 //DOCKER HOST REQUIREMENTS:
 //	- CA certificates from rep must be installed;
@@ -12,7 +11,7 @@ pipeline {
 	agent {
 		docker {
 			image 'hub.tolstykh.family/build-java:latest'
-			args '-v /var/run/docker.sock:/var/run/docker.sock'
+			args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:jenkins --group-add docker --env JENKINSUID=`id -u jenkins` --env JENKINSGID=`id -g jenkins` --env DOCKERGID=`stat -c %g /var/run/docker.sock`'
 		}
 	}
 
@@ -57,7 +56,7 @@ stages {
 
 	stage('Run docker on remote docker host') {
 		steps {
-			sh 'docker -H tcp://158.160.16.181:22375 run -d --pull always --expose 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
+			sh 'docker -H tcp://158.160.16.181:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
 		}
 	}
 
