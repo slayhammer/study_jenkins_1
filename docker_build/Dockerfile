@@ -30,3 +30,8 @@ RUN apt-get update && apt-get install -y \
 
 # Add jenkins account for neccessary permissions to work
 RUN useradd -g users -G docker -m -u 109 -c "Jenkins action account" jenkins
+
+# Add CA certificates to trust nexus repository site
+COPY globalsign_im.crt /usr/local/share/ca-certificates/
+COPY globalsign_root.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
