@@ -29,4 +29,5 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add jenkins account for neccessary permissions to work
-RUN useradd -g users -G docker,sudo -m -u 109 -c "Jenkins action account" jenkins
+# RUN useradd -g users -G docker,sudo -m -u 109 -c "Jenkins action account" jenkins
+RUN useradd -g docker -m -u 109 -c "Jenkins action account" jenkins

@@ -4,8 +4,8 @@ pipeline {
 		//'dockerd' daemon at target host must be set up and available for jenkins host. 
 		//It's necessary to grant the user 'jenkins' permission to a docker:
 		//  'usermod -a -G docker jenkins'
-		//  'chmod 777 /var/run/docker.sock' (every time after jenkins host restarts)
-			image 'hub.tolstykh.family/build-java:v0.1.6'
+		//  'chmod 666 /var/run/docker.sock' (every time after jenkins host restarts)
+			image 'hub.tolstykh.family/build-java:v0.1.7'
 			args '-v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
