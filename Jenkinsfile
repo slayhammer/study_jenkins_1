@@ -36,6 +36,7 @@ stages {
 			sh 'mkdir /tmp/prod-rep; cd /tmp/prod-rep'
 			git(url: 'https://github.com/slayhammer/study_jenkins_1.git', branch: 'master', poll: true)
 			sh 'cp -f Dockerfile /tmp/build/'
+			sh 'cat /etc/group' //debug
 		}
 	}
 	
@@ -56,7 +57,7 @@ stages {
 
 	stage('Run docker on remote docker host') {
 		steps {
-			sh 'docker -H tcp://158.160.16.181:22375 run -d --pull always hub.tolstykh.family/java-app:v0.1.0'
+			sh 'docker -H tcp://158.160.16.181:22375 run -d --pull always --expose 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
 		}
 	}
 
