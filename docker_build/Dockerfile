@@ -12,7 +12,6 @@ ENV TZ=Europe/Moscow
 #	'maven'     - for building the app
 #	'docker-ce' - for building prod container
 RUN apt-get update && apt-get install -y \
-	sudo \
 	apt-transport-https \
 	curl \
 	gnupg2 \
@@ -29,11 +28,5 @@ RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*
 
+# Add jenkins account for neccessary permissions to work
 RUN useradd -g users -G docker,sudo -m -u 109 -c "Jenkins action account" jenkins
-
-# Install ssh
-# RUN apt-get -y install openssh-client
-
-# Configure ssh client
-# COPY id_rsa /root/.ssh/id_rsa
-# RUN chmod 600 /root/.ssh/id_rsa
