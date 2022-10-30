@@ -50,7 +50,7 @@ stages {
 
 	stage('Run docker on remote docker host') {
 		steps {
-			sh 'docker run -h tcp://158.160.16.181:22375 -d --pull always hub.tolstykh.family/java-app:v0.1.0'
+			sh 'docker -H tcp://158.160.16.181:22375 run -d --pull always hub.tolstykh.family/java-app:v0.1.0'
 		}
 	}
 
