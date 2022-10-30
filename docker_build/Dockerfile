@@ -8,9 +8,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
 
 # Seting up all necessary software but docker:
-#	'git'       - for cloning the sample java app from a rep
-#	'maven'     - for building the app
-#	'docker-ce' - for building prod container
+#   first 4 pkgs - for adding docker engine package repository
+#	'git'        - for cloning the sample java app from a rep
+#	'maven'      - for building the app
 RUN apt-get update && apt-get install -y \
 	apt-transport-https \
 	curl \
@@ -29,5 +29,4 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add jenkins account for neccessary permissions to work
-# RUN useradd -g users -G docker,sudo -m -u 109 -c "Jenkins action account" jenkins
-RUN useradd -g docker -m -u 109 -c "Jenkins action account" jenkins
+RUN useradd -g users -G docker -m -u 109 -c "Jenkins action account" jenkins
