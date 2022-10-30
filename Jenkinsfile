@@ -1,10 +1,16 @@
+//JENKINS HOST REQUIREMENTS:
+//	- CA certificates from rep must be installed;
+//  - It's necessary to grant the user 'jenkins' permission to a docker:
+//  	'usermod -a -G docker jenkins'
+//  	'chmod 666 /var/run/docker.sock' (!!!every time after jenkins host restarts!!!)
+//
+//DOCKER HOST REQUIREMENTS:
+//	- CA certificates from rep must be installed;
+//	- 'dockerd' daemon at target host must be set up and available for jenkins host.
+
 pipeline {
 	agent {
 		docker {
-		//'dockerd' daemon at target host must be set up and available for jenkins host. 
-		//It's necessary to grant the user 'jenkins' permission to a docker:
-		//  'usermod -a -G docker jenkins'
-		//  'chmod 666 /var/run/docker.sock' (every time after jenkins host restarts)
 			image 'hub.tolstykh.family/build-java:latest'
 			args '-v /var/run/docker.sock:/var/run/docker.sock'
 		}
@@ -36,7 +42,7 @@ stages {
 	stage('Nexus login') {
 		steps {
 			withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'NEXUS_PWD', usernameVariable: 'NEXUS_USER')]) {
-				sh 'printenv NEXUS_PWD | docker login -u $NEXUS_USER --password-stdin hub.tolstykh.family'
+				sh 'docker login -u $NEXUS_USER -p $NEXUS_PWD hub.tolstykh.family'
 			}
 		}
 	}
