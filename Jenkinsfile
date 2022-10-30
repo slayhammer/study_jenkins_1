@@ -11,7 +11,7 @@ pipeline {
 	agent {
 		docker {
 			image 'hub.tolstykh.family/build-java:latest'
-			args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:jenkins --group-add docker --env JENKINSUID=`id -u jenkins` --env JENKINSGID=`id -g jenkins` --env DOCKERGID=`stat -c %g /var/run/docker.sock`'
+			args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:jenkins --group-add docker --env JENKINSUID="id -u jenkins" --env JENKINSGID=`id -g jenkins` --env DOCKERGID=`stat -c %g /var/run/docker.sock`'
 		}
 	}
 
