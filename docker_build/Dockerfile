@@ -5,9 +5,6 @@ FROM ubuntu:20.04
 
 # Environment setup
 ARG DEBIAN_FRONTEND=noninteractive
-ARG JENKINSUID
-ARG JENKINSGID
-ARG DOCKERGID
 ENV TZ=Europe/Moscow
 
 # Seting up all necessary software but docker:
