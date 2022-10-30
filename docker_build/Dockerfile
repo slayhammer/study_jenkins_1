@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& apt remove docker-compose -y	
 
-# RUN useradd -g users -G docker,sudo -d /home/jenkins -u 109 -c "Jenkins action account" jenkins
+RUN useradd -g users -G docker,sudo -m -u 109 -c "Jenkins action account" jenkins
 
 # Install ssh
 # RUN apt-get -y install openssh-client
