@@ -27,8 +27,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
 # Setting up docker and further cache cleaning:
 RUN apt-get update && apt-get install -y \
 	docker-ce \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& apt remove docker-compose -y	
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN useradd -g users -G docker,sudo -m -u 109 -c "Jenkins action account" jenkins
 
