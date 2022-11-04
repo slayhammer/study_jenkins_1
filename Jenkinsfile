@@ -8,6 +8,7 @@
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
 
 pipeline {
+	agent none
 	environment {
 	    JENKINSUID = """${sh(
 	    				returnStdout: true,
@@ -24,6 +25,8 @@ pipeline {
 	    				script: 'stat -c %g /var/run/docker.sock'
 	    			)}"""
 	}
+stages {
+	stage {
 
 	agent {
 		docker {
@@ -84,6 +87,9 @@ pipeline {
 		}
 	}
 
+}
+
+}
 }
 
 }
