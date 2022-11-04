@@ -8,6 +8,25 @@
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
 
 pipeline {
+	agent any
+	environment {
+	    JENKINSUID = """$sh(
+	    				returnStdout: true,
+	    				script: 'id -u jenkins'
+	    			(}"""
+	    JENKINSUID = JENKINSUID.trim()
+	}
+
+	stages {
+	    stage('Debug section') {
+	    	steps {
+	    	sh 'echo JENKINSUID'
+	    	sh 'echo $JENKINSUID'
+	    	echo "${env.JENKINSUID}"
+	    	}
+        }
+	}
+	
 	agent {
 		docker {
 			image 'hub.tolstykh.family/build-java:latest'
@@ -56,7 +75,7 @@ stages {
 
 	stage('Run docker on remote docker host') {
 		steps {
-			sh 'docker -H tcp://158.160.16.181:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
+			sh 'docker -H tcp://51.250.23.213:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
 		}
 	}
 
