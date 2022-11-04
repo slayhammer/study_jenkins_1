@@ -10,7 +10,7 @@
 pipeline {
 	agent any
 	environment {
-	    JENKINSUID = """$sh(
+	    JENKINSUID = """${sh(
 	    				returnStdout: true,
 	    				script: 'id -u jenkins'
 	    			(}"""
