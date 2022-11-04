@@ -8,13 +8,6 @@
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
 
 pipeline {
-	agent {
-		docker {
-			image 'hub.tolstykh.family/build-java:latest'
-			args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e JENKINSUID -e JENKINSGID -e DOCKERGID'
-		}
-	}
-
 	environment {
 	    JENKINSUID = """${sh(
 	    				returnStdout: true,
@@ -30,6 +23,13 @@ pipeline {
 	    				returnStdout: true,
 	    				script: 'stat -c %g /var/run/docker.sock'
 	    			)}"""
+	}
+
+	agent {
+		docker {
+			image 'hub.tolstykh.family/build-java:latest'
+			args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e JENKINSUID -e JENKINSGID -e DOCKERGID'
+		}
 	}
 
 	stages {
