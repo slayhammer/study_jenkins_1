@@ -11,7 +11,7 @@ pipeline {
 	agent {
 		docker {
 			image 'hub.tolstykh.family/build-java:latest'
-			args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e JENKINSUID -e JENKINSGID=`id -g jenkins` -e DOCKERGID=`stat -c %g /var/run/docker.sock`'
+			args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e JENKINSUID -e JENKINSGID -e DOCKERGID'
 		}
 	}
 
@@ -19,6 +19,16 @@ pipeline {
 	    JENKINSUID = """${sh(
 	    				returnStdout: true,
 	    				script: 'id -u jenkins'
+	    			)}"""
+
+	    JENKINSGID = """${sh(
+	    				returnStdout: true,
+	    				script: 'id -g jenkins'
+	    			)}"""
+
+	    DOCKERGID  = """${sh(
+	    				returnStdout: true,
+	    				script: 'stat -c %g /var/run/docker.sock'
 	    			)}"""
 	}
 
