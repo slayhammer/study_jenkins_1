@@ -14,7 +14,7 @@ pipeline {
 	    				returnStdout: true,
 	    				script: 'id -u jenkins'
 	    			)}"""
-	    JENKINSUID = JENKINSUID.trim()
+	    JENKINSUID.trim()
 	}
 
 	stages {
