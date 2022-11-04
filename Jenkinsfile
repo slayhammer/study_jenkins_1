@@ -37,9 +37,10 @@ pipeline {
 			stages {
 	    		stage('Debug section') {
 	    			steps {
-	    				sh 'echo JENKINSUID'
-	    				sh 'echo $JENKINSUID'
 	    				echo "${env.JENKINSUID}"
+	    				echo "${env.JENKINSGID}"
+	    				echo "${env.DOCKERGID}"	
+	    				sh 'cat /etc/passwd'		
 	    			}
         		}
 
@@ -61,7 +62,6 @@ pipeline {
 						sh 'mkdir /tmp/prod-rep; cd /tmp/prod-rep'
 						git(url: 'https://github.com/slayhammer/study_jenkins_1.git', branch: 'master', poll: true)
 						sh 'cp -f Dockerfile /tmp/build/'
-						sh 'cat /etc/group' //debug
 					}
 				}
 	
