@@ -13,7 +13,7 @@ pipeline {
 	    JENKINSUID = """${sh(
 	    				returnStdout: true,
 	    				script: 'id -u jenkins'
-	    			(}"""
+	    			)}"""
 	    JENKINSUID = JENKINSUID.trim()
 	}
 
