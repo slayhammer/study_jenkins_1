@@ -8,13 +8,18 @@
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
 
 pipeline {
-	agent any
+	agent {
+		docker {
+			image 'hub.tolstykh.family/build-java:latest'
+			args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:jenkins --group-add docker -e JENKINSUID=`id -u jenkins` -e JENKINSGID=`id -g jenkins` -e DOCKERGID=`stat -c %g /var/run/docker.sock`'
+		}
+	}
+
 	environment {
 	    JENKINSUID = """${sh(
 	    				returnStdout: true,
 	    				script: 'id -u jenkins'
 	    			)}"""
-	    JENKINSUID.trim()
 	}
 
 	stages {
@@ -25,16 +30,6 @@ pipeline {
 	    	echo "${env.JENKINSUID}"
 	    	}
         }
-	}
-	
-	agent {
-		docker {
-			image 'hub.tolstykh.family/build-java:latest'
-			args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:jenkins --group-add docker -e JENKINSUID=`id -u jenkins` -e JENKINSGID=`id -g jenkins` -e DOCKERGID=`stat -c %g /var/run/docker.sock`'
-		}
-	}
-
-stages {
 
 	stage('Copy source with configs') {
 		steps {
