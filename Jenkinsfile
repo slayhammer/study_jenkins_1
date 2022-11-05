@@ -30,7 +30,7 @@ pipeline {
 			agent {
 				docker {
 					image 'hub.tolstykh.family/build-java:latest'
-					args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e JENKINSUID -e JENKINSGID -e DOCKERGID'
+					args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e ${JENKINSUID} -e ${JENKINSGID} -e ${DOCKERGID}'
 				}
 			}
 
@@ -42,7 +42,6 @@ pipeline {
 	    				echo "${env.DOCKERGID}"	
 	    				sh 'cat /etc/passwd'
 	    				sh 'cat /etc/group'
-	    				sh 'cat /tmp/useradd.log'
 	    			}
         		}
 
