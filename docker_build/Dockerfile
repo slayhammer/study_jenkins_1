@@ -29,4 +29,7 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add jenkins account for neccessary permissions to work
-CMD useradd -g $JENKINSGID -G $DOCKERGID -m -N -u $JENKINSUID -c "Jenkins action account" jenkins > /tmp/useradd.log
+# CMD useradd -g $JENKINSGID -G $DOCKERGID -m -N -u $JENKINSUID -c "Jenkins action account" jenkins > /tmp/useradd.log
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
