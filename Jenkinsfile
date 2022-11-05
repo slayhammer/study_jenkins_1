@@ -8,29 +8,29 @@
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
 
 pipeline {
-//	agent any
-//	environment {
-//	    JENKINSUID = """${sh(
-//	    				returnStdout: true,
-//	    				script: 'id -u jenkins'
-//	    			)}"""
+	agent any
+	environment {
+	    JENKINSUID = """${sh(
+	    				returnStdout: true,
+	    				script: 'id -u jenkins'
+	    			)}"""
 
-//	    JENKINSGID = """${sh(
-//	    				returnStdout: true,
-//	    				script: 'id -g jenkins'
-//	    			)}"""
+	    JENKINSGID = """${sh(
+	    				returnStdout: true,
+	    				script: 'id -g jenkins'
+	    			)}"""
 
-//	    DOCKERGID  = """${sh(
-//	    				returnStdout: true,
-//	    				script: 'stat -c %g /var/run/docker.sock'
-//	    			)}"""
-//	}
-//	stages {
-//		stage('Build and deploy the app') {
+	    DOCKERGID  = """${sh(
+	    				returnStdout: true,
+	    				script: 'stat -c %g /var/run/docker.sock'
+	    			)}"""
+	}
+	stages {
+		stage('Build and deploy the app') {
 			agent {
 				docker {
 					image 'hub.tolstykh.family/build-java:latest'
-					args '--group-add docker -v /var/run/docker.sock:/var/run/docker.sock --entrypoint= -e JENKINSUID=$(id -u jenkins) -e JENKINSGID=$(id -g jenkins) -e DOCKERGID=$(stat -c %g /var/run/docker.sock)'
+					args '--group-add docker -v /var/run/docker.sock:/var/run/docker.sock --entrypoint= -e JENKINSUID -e JENKINSGID -e DOCKERGID'
 				}
 			}
 
@@ -89,7 +89,7 @@ pipeline {
 
 			}
 
-//		}
-//	}
+		}
+	}
 
 }
