@@ -28,11 +28,8 @@ RUN apt-get update && apt-get install -y \
 	docker-ce \
 	&& rm -rf /var/lib/apt/lists/*
 
-# Sync jenkins user context for getting neccessary permissions
-# CMD groupmod -og ${DOCKERGID}  docker; \
-#	groupadd -og ${JENKINSGID} jenkins; \
-#	useradd -g jenkins -G docker -m -N -u ${JENKINSUID} -c "Jenkins action account" jenkins
-
+# Enprypoint to sync jenkins user context for getting neccessary permissions
+# and to behave as jenkins expects
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
