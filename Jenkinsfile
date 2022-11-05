@@ -39,7 +39,8 @@ pipeline {
 	    			steps {
 	    				echo "${env.JENKINSUID}"
 	    				echo "${env.JENKINSGID}"
-	    				echo "${env.DOCKERGID}"	
+	    				echo "${env.DOCKERGID}"
+	    				sh "groupmod -og ${DOCKERGID} docker"	
 	    				sh 'cat /etc/passwd'
 	    				sh 'cat /etc/group'
 	    			}
