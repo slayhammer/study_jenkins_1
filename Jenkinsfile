@@ -30,7 +30,7 @@ pipeline {
 			agent {
 				docker {
 					image 'hub.tolstykh.family/build-java:latest'
-					args '--group-add docker -v /var/run/docker.sock:/var/run/docker.sock --entrypoint= -e JENKINSUID -e JENKINSGID -e DOCKERGID'
+					args '--group-add docker -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=/entrypoint.sh -e JENKINSUID -e JENKINSGID -e DOCKERGID'
 				}
 			}
 
