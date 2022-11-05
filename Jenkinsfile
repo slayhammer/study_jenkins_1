@@ -2,11 +2,13 @@
 //	- CA certificates from rep must be installed;
 //  - It's necessary to grant the user 'jenkins' permission to a docker:
 //  	'usermod -a -G docker jenkins'
+//    and (it's KNOWN ISSUE):
+//      'chmod 666 /var/run/docker.sock' (!!!every time after jenkins host restarts!!!)
 //
 //DOCKER HOST REQUIREMENTS:
 //	- CA certificates from rep must be installed;
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
-
+//
 pipeline {
 	agent any
 	environment {
@@ -35,15 +37,15 @@ pipeline {
 			}
 
 			stages {
-	    		stage('Debug section') {
-	    			steps {
-	    				echo "${JENKINSUID}"
-	    				echo "${JENKINSGID}"
-	    				echo "${DOCKERGID}"
-	    				sh 'cat /etc/passwd'
-	    				sh 'cat /etc/group'
-	    			}
-        		}
+//	    		stage('Debug section') {
+//	    			steps {
+//	    				echo "${JENKINSUID}"
+//	    				echo "${JENKINSGID}"
+//	    				echo "${DOCKERGID}"
+//	    				sh 'cat /etc/passwd'
+//	    				sh 'cat /etc/group'
+//	    			}
+//       		}
 
 				stage('Copy source with configs') {
 					steps {
