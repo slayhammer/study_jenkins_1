@@ -37,10 +37,11 @@ pipeline {
 			stages {
 	    		stage('Debug section') {
 	    			steps {
-	    				echo "${env.JENKINSUID}"
-	    				echo "${env.JENKINSGID}"
-	    				echo "${env.DOCKERGID}"
-	    				sh "groupmod -og ${DOCKERGID} docker"	
+	    				echo "${JENKINSUID}"
+	    				echo "${JENKINSGID}"
+	    				echo "${DOCKERGID}"
+	    				sh "groupadd -og ${JENKINSGID} jenkins"
+	    				sh "groupmod -og ${DOCKERGID} docker"
 	    				sh 'cat /etc/passwd'
 	    				sh 'cat /etc/group'
 	    			}
