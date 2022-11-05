@@ -8,29 +8,29 @@
 //	- 'dockerd' daemon at target host must be set up and available for jenkins host.
 
 pipeline {
-	agent any
-	environment {
-	    JENKINSUID = """${sh(
-	    				returnStdout: true,
-	    				script: 'id -u jenkins'
-	    			)}"""
+//	agent any
+//	environment {
+//	    JENKINSUID = """${sh(
+//	    				returnStdout: true,
+//	    				script: 'id -u jenkins'
+//	    			)}"""
 
-	    JENKINSGID = """${sh(
-	    				returnStdout: true,
-	    				script: 'id -g jenkins'
-	    			)}"""
+//	    JENKINSGID = """${sh(
+//	    				returnStdout: true,
+//	    				script: 'id -g jenkins'
+//	    			)}"""
 
-	    DOCKERGID  = """${sh(
-	    				returnStdout: true,
-	    				script: 'stat -c %g /var/run/docker.sock'
-	    			)}"""
-	}
-	stages {
-		stage('Build and deploy the app') {
+//	    DOCKERGID  = """${sh(
+//	    				returnStdout: true,
+//	    				script: 'stat -c %g /var/run/docker.sock'
+//	    			)}"""
+//	}
+//	stages {
+//		stage('Build and deploy the app') {
 			agent {
 				docker {
 					image 'hub.tolstykh.family/build-java:latest'
-					args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e ${JENKINSUID} -e ${JENKINSGID} -e ${DOCKERGID}'
+					args '-v /var/run/docker.sock:/var/run/docker.sock --group-add docker -e JENKINSUID=$(id -u jenkins) -e JENKINSGID=$(id -g jenkins) -e DOCKERGID=$(stat -c %g /var/run/docker.sock)'
 				}
 			}
 
@@ -40,8 +40,6 @@ pipeline {
 	    				echo "${JENKINSUID}"
 	    				echo "${JENKINSGID}"
 	    				echo "${DOCKERGID}"
-	    				sh 'groupadd -og ${JENKINSGID} jenkins'
-	    				sh "groupmod -og ${DOCKERGID} docker"
 	    				sh 'cat /etc/passwd'
 	    				sh 'cat /etc/group'
 	    			}
@@ -91,7 +89,7 @@ pipeline {
 
 			}
 
-		}
-	}
+//		}
+//	}
 
 }
