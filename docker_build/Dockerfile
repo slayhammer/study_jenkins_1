@@ -29,7 +29,8 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add jenkins account for neccessary permissions to work
-CMD groupmod -og ${DOCKERGID}  docker; \
+CMD echo "${DOCKERGID} ${JENKINSGID} ${JENKINSUID}"; \
+	groupmod -og ${DOCKERGID}  docker; \
 	groupadd -og ${JENKINSGID} jenkins; \
 	useradd -g jenkins -G docker -m -N -u ${JENKINSUID} -c "Jenkins action account" jenkins
 
