@@ -41,7 +41,8 @@ pipeline {
 	    				echo "${env.JENKINSGID}"
 	    				echo "${env.DOCKERGID}"	
 	    				sh 'cat /etc/passwd'
-	    				sh 'cat /etc/group'		
+	    				sh 'cat /etc/group'
+	    				sh 'cat /tmp/useradd.log'
 	    			}
         		}
 
