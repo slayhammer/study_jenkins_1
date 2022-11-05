@@ -30,7 +30,7 @@ pipeline {
 			agent {
 				docker {
 					image 'hub.tolstykh.family/build-java:latest'
-					args '-v /var/run/docker.sock:/var/run/docker.sock -e JENKINSUID=$(id -u jenkins) -e JENKINSGID=$(id -g jenkins) -e DOCKERGID=$(stat -c %g /var/run/docker.sock)'
+					args "-v /var/run/docker.sock:/var/run/docker.sock -e JENKINSUID=$(id -u jenkins) -e JENKINSGID=$(id -g jenkins) -e DOCKERGID=$(stat -c %g /var/run/docker.sock)"
 				}
 			}
 
