@@ -40,7 +40,7 @@ pipeline {
 	    				echo "${JENKINSUID}"
 	    				echo "${JENKINSGID}"
 	    				echo "${DOCKERGID}"
-	    				sh "groupadd -og ${JENKINSGID} jenkins"
+	    				sh "groupadd -g ${JENKINSGID} -o jenkins"
 	    				sh "groupmod -og ${DOCKERGID} docker"
 	    				sh 'cat /etc/passwd'
 	    				sh 'cat /etc/group'
