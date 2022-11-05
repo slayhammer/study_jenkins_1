@@ -40,7 +40,8 @@ pipeline {
 	    				echo "${env.JENKINSUID}"
 	    				echo "${env.JENKINSGID}"
 	    				echo "${env.DOCKERGID}"	
-	    				sh 'cat /etc/passwd'		
+	    				sh 'cat /etc/passwd'
+	    				sh 'cat /etc/group'		
 	    			}
         		}
 
