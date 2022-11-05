@@ -82,7 +82,7 @@ pipeline {
 
 				stage('Run docker on remote docker host') {
 					steps {
-						sh 'docker -H tcp://51.250.23.213:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
+						sh 'docker -H tcp://84.201.139.106:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
 					}
 				}
 
