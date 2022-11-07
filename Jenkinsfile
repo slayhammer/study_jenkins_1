@@ -32,7 +32,7 @@ pipeline {
 			agent {
 				docker {
 					image 'hub.tolstykh.family/build-java:latest'
-					args '--group-add docker -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=/entrypoint.sh -e JENKINSUID -e JENKINSGID -e DOCKERGID'
+					args '--group-add docker -v /var/run/docker.sock:/var/run/docker.sock --privileged --entrypoint=/entrypoint.sh -e JENKINSUID -e JENKINSGID -e DOCKERGID'
 				}
 			}
 
@@ -85,7 +85,7 @@ pipeline {
 
 				stage('Run docker on remote docker host') {
 					steps {
-						sh 'docker -H tcp://84.201.139.106:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
+						sh 'docker -H tcp://51.250.106.43:22375 run -d --pull always -p 8080:8080 hub.tolstykh.family/java-app:v0.1.0'
 					}
 				}
 
